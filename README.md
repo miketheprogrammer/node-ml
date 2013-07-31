@@ -10,9 +10,7 @@ The Single Layer Perceptron
 ========
 
 With the single layer perceptron is it possible to solve Linearly Seperable Problems. This makes the SLP a fast tool for solving
--------------------------------------------------------------------
 simple classification problems.
--------------------------------------------------------------------
 
 The SLP takes as input a list of 1x2 vectors as in
 ````javascript
