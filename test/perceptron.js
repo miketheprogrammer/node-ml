@@ -1,6 +1,5 @@
 var SingleLayerPerceptron = require("../lib/index").perceptrons.SingleLayerPerceptron;
 var test = require('tap').test;
-var async = require('async');
 
 test('SimpleModel', function (t) {
     var inputs = [
