@@ -8,6 +8,13 @@
   "dependencies": {
     "sylvester": ">= 0.0.8"
   },
+  "scripts" : {
+        "test" : "tap ./test/*.js"
+  },
+  "repository" :
+  { "type" : "git"
+  , "url" : "http://github.com/miketheprogrammer/node-ml.git"
+  },
   "author": "Michael Hernandez <michael.hernandez1988@gmail.com>",
   "keywords": ["machine", "learning", "ml", "classifier", "clustering", "bayes", "k-means", "logistic", "regression", "perceptron", "neural","net"],
   "main": "./lib/index.js",
