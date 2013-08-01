@@ -1,0 +1,138 @@
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
+  <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
+
+  <title>Node-ml</title>
+  <meta name="description" content="A Collection of Machine Learning algorithms built for use with NodeJS">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <h1 class="title">Node-ml</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">A Collection of Machine Learning algorithms built for use with NodeJS</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/miketheprogrammer/node-ml/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/miketheprogrammer/node-ml/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/miketheprogrammer/node-ml" class="code">View Node-ml on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <h1>
+<a name="node-ml" class="anchor" href="#node-ml"><span class="octicon octicon-link"></span></a>node-ml</h1>
+
+<p>A Collection of Machine Learning algorithms built for use with NodeJS</p>
+
+<p><a href="http://travis-ci.org/miketheprogrammer/node-ml"><img src="https://secure.travis-ci.org/miketheprogrammer/node-ml.png" alt="build status"></a></p>
+
+<h1>
+<a name="the-single-layer-perceptron" class="anchor" href="#the-single-layer-perceptron"><span class="octicon octicon-link"></span></a>The Single Layer Perceptron</h1>
+
+<p>With the single layer perceptron is it possible to solve Linearly Seperable Problems. This makes the SLP a fast tool for solving
+simple classification problems.</p>
+
+<p>The SLP takes as input a list of 1x2 vectors as in</p>
+
+<div class="highlight"><pre><span class="p">[</span>
+  <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+  <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">]</span>
+</pre></div>
+
+<p>We must also provide the SLP a list of expected outputs for each vector. Currently the system only supports 1 | -1
+These outputs define the side of the line the elements fall on. It is not important which value you give to which inputs.
+Just that these inputs correspond in a linear way to the outputs.</p>
+
+<p>So for the above input we prove</p>
+
+<div class="highlight"><pre><span class="p">[</span>
+  <span class="mi">1</span><span class="p">,</span>
+  <span class="o">-</span><span class="mi">1</span>
+<span class="p">]</span>
+</pre></div>
+
+<p>Now the SLP will solve for where [1,1] === 1 and [-1,-1] === -1</p>
+
+<h2>
+<a name="training-the-slp" class="anchor" href="#training-the-slp"><span class="octicon octicon-link"></span></a>Training the SLP</h2>
+
+<p>SingleLayerPerceptron(inputs, outputs, learningRate)</p>
+
+<div class="highlight"><pre><span class="nx">slp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SingleLayerPerceptron</span><span class="p">(</span><span class="nx">inputs</span><span class="p">,</span> <span class="nx">outputs</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">);</span>
+<span class="nx">slp</span><span class="p">.</span><span class="nx">train</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">trainedModel</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="nx">trainedModel</span><span class="p">.</span><span class="nx">perceive</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+      <span class="c1">//should print out 1</span>
+    <span class="p">});</span> 
+    <span class="nx">trainedModel</span><span class="p">.</span><span class="nx">perceive</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+      <span class="c1">//should print out -1</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>Even Better remember the above trained model is a Line seperating a 2d dimension space from -1 to 1 
+We can input any value in this range and get an output however this limited training set is a bad choice but heres some outputs</p>
+
+<p>Obtained From Running examples/singlelayerperceptron2.js</p>
+
+<div class="highlight"><pre><span class="nx">Input</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span><span class="mi">1</span>
+<span class="mi">1</span>
+<span class="nx">Input</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span>
+<span class="o">-</span><span class="mi">1</span>
+<span class="nx">Input</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span>
+<span class="mi">1</span>
+<span class="nx">Input</span><span class="o">:</span> <span class="o">-</span><span class="p">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span>
+<span class="mi">1</span>
+<span class="nx">Input</span><span class="o">:</span> <span class="p">.</span><span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span>
+<span class="o">-</span><span class="mi">1</span>
+<span class="nx">Input</span><span class="o">:</span> <span class="p">.</span><span class="mi">2</span><span class="p">,.</span><span class="mi">45634</span>
+<span class="mi">1</span>
+<span class="nx">Input</span><span class="o">:</span> <span class="p">.</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="p">.</span><span class="mi">45634</span>
+<span class="o">-</span><span class="mi">1</span>
+<span class="nx">Input</span><span class="o">:</span> <span class="o">-</span><span class="p">.</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="p">.</span><span class="mi">4</span>
+<span class="o">-</span><span class="mi">1</span>
+<span class="nx">Input</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span>
+<span class="o">-</span><span class="mi">1</span>
+</pre></div>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/miketheprogrammer" class="avatar"><img src="https://secure.gravatar.com/avatar/d3c8de28f9bfa2920c8da4bfd221d72c?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png" width="48" height="48"/></a> <a href="https://github.com/miketheprogrammer">miketheprogrammer</a> maintains <a href="https://github.com/miketheprogrammer/node-ml">Node-ml</a></p>
+
+
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br/>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/miketheprogrammer/node-ml/tarball/master" class="tar">tar</a><a href="https://github.com/miketheprogrammer/node-ml/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+  
+</body>
+</html>
