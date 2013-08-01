@@ -1,4 +1,9 @@
 var mlp = require("../lib/index").perceptrons.MultiLayerPerceptron;
+var readline = require("readline");
+var rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 var data = [
     [0.10, 0.03, 0],
     [0.11, 0.11, 0],
@@ -31,10 +36,21 @@ var data = [
     [0.95, 0.15, 1],
     [0.98, 0.73, 0]
 ];
-m = new mlp();
+m = new mlp(data);
 
-m.initialize();
-m.load(data);
-console.log(m);
-m.train();
+
+m.train(function(trainedModel) {
+    var inp = function() {
+        rl.question("Input: ", function(answer) {
+            var arr = answer.split(",");
+            var x = parseFloat(arr[0]);
+            var y = parseFloat(arr[1]);
+            trainedModel.perceive([x,y], function(result) {
+                console.log(result);
+                inp();
+            });
+        });
+    }
+    inp();
+});
 
