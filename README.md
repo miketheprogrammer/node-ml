@@ -5,7 +5,11 @@ A Collection of Machine Learning algorithms built for use with NodeJS
 
 [![build status](https://secure.travis-ci.org/miketheprogrammer/node-ml.png)](http://travis-ci.org/miketheprogrammer/node-ml)
 
-
+Installation
+========
+````javascript
+npm install node-ml
+````
 The Single Layer Perceptron
 ========
 
