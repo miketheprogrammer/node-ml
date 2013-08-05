@@ -91,3 +91,21 @@ The Linear Regression Model
 With Linear Regression we can predict outcomes based on an input.
 
 Refer to examples.
+
+The KMeans Classifier
+========
+
+This implementation of the KMeans classifier is an N-Dimensional
+classification algorithm. It works by:
+
+1. Generating Random K Centroids.
+
+2. Assigning a K centroid to a point p in Training set T
+   such that the Cost(p) with respect to k is minimized;
+   Cost(p) is defined as the distances from P to each K
+
+3. Move the centroids to the Mean of each cluster assigned to them
+
+4. Repeat until movement no longer occurs.
+
+Refer to examples for Usage:
