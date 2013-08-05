@@ -79,6 +79,15 @@ Input: -1,-1
 -1
 ````
 
+The Multi Layer Perceptron
+========
+With the Multi Layer Perceptron it is possible to Classify linearly non seperable data set. Meaning that the data fits to a polynomial function.
 
+Refer to examples.
 
+The Linear Regression Model
+========
 
+With Linear Regression we can predict outcomes based on an input.
+
+Refer to examples.
