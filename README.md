@@ -10,6 +10,30 @@ Installation
 ````javascript
 npm install node-ml
 ````
+
+Basic API Knowledge
+========
+
+Models are Instantiated with a TrainingSet as an argument
+
+Models are trained via .train()
+
+Models are acted upon by the perceive or predict functions. These functions currently do the same thing, the wording is indicative of the nature of the result, and the action the model has taken on the data.
+
+Models are designed to be trained at the start of a node instance, not during runtime. 
+
+Models all inherit from EventEmitter
+
+Models support either Callbacks or Events
+
+callbacks are of the structure function( err, result ) 
+
+Models support 3 events : trained, response, error
+
+Callbacks override Events, if you specify a callback and event will not be received.
+
+
+
 The Single Layer Perceptron
 ========
 
