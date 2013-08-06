@@ -106,11 +106,11 @@ var data = [
 ];
 
 var m = new LinearRegression(data);
-m.train(function(trainedModel) {
+m.train(function(err, trainedModel) {
     var inp = function() {
         rl.question("Input: ", function(answer) {
             var x = parseFloat(answer);
-            trainedModel.predict(answer, function(result) {
+            trainedModel.predict(answer, function(err, result) {
                 console.log(result);
                 inp();
             });
