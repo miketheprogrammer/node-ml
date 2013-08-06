@@ -35,14 +35,19 @@ var data = [
 
 var x = new KMeans(data, 3);
 
+x.train(function(err, trainedModel) {
 
-x.train(function(trainedModel) {
+    if ( err ) {
+        console.log(err);
+        return;
+    }
     var inp = function() {
         rl.question("Input: ", function(answer) {
             var arr = answer.split(",");
             var x = parseFloat(arr[0]);
             var y = parseFloat(arr[1]);
-            trainedModel.perceive([x,y], function(result) {
+            trainedModel.perceive([x,y], function(err, result) {
+                console.log(err);
                 console.log(result);
                 inp();
             });
@@ -121,9 +126,10 @@ function draw(assignments, dataExtremes, data, means) {
     }
 
 }
-
-draw(x.assignments, x.dimensions, x.data, x.mu);
-canvas.toDataURL(function(err, str){
-    console.log(err);
-    console.log(str);
-});
+try {
+    draw(x.assignments, x.dimensions, x.data, x.mu);
+    canvas.toDataURL(function(err, str){
+        console.log(err);
+        //console.log(str);
+    });
+} catch ( e ) {}

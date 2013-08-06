@@ -1,9 +1,9 @@
+/*
+Tests a Partially Evented Linear Regression
+*/
+
 var LinearRegression= require("../lib/index").regression.LinearRegression;
-var readline = require("readline");
-var rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+var test = require('tap').test;
 
 var data = [
     [6.1101,17.592],
@@ -105,17 +105,19 @@ var data = [
     [5.4369,0.61705]
 ];
 
-var m = new LinearRegression(data);
-m.train(function(err, trainedModel) {
-    var inp = function() {
-        rl.question("Input: ", function(answer) {
-            var x = parseFloat(answer);
-            trainedModel.predict(answer, function(err, result) {
-                console.log(result);
-                inp();
+test('Population by Profit Linear Regression', function(t) {
+    var m = new LinearRegression(data);
+    m.on('trained', function(trainedModel) { 
+        t.same(trainedModel.theta.cols(), 1);
+        t.same(trainedModel.theta.rows(), 2);
+
+        trainedModel.predict(6.1101, function(err, result) {
+            t.same(result.out, 3.4962991573810798);
+            trainedModel.predict(10, function(err, result) {
+                t.same(result.out, 8.03333206395146);
+                t.end();
             });
         });
-    }
-    inp();
-
+    });
+    m.train();
 });
