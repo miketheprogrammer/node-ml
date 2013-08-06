@@ -39,13 +39,13 @@ var data = [
 m = new mlp(data);
 
 
-m.train(function(trainedModel) {
+m.train(function(err, trainedModel) {
     var inp = function() {
         rl.question("Input: ", function(answer) {
             var arr = answer.split(",");
             var x = parseFloat(arr[0]);
             var y = parseFloat(arr[1]);
-            trainedModel.perceive([x,y], function(result) {
+            trainedModel.perceive([x,y], function(err, result) {
                 console.log(result);
                 inp();
             });

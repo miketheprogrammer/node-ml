@@ -103,14 +103,14 @@ var data = [
 
 test('Population by Profit Linear Regression', function(t) {
     var m = new LinearRegression(data);
-    m.train(function(trainedModel) { 
+    m.train(function(err, trainedModel) { 
         t.same(trainedModel.theta.cols(), 1);
         t.same(trainedModel.theta.rows(), 2);
 
-        trainedModel.predict(6.1101, function(result) {
-            t.same(result, 3.4962991573810798);
-            trainedModel.predict(10, function(result) {
-                t.same(result, 8.03333206395146);
+        trainedModel.predict(6.1101, function(err, result) {
+            t.same(result.out, 3.4962991573810798);
+            trainedModel.predict(10, function(err, result) {
+                t.same(result.out, 8.03333206395146);
                 t.end();
             });
         });

@@ -108,12 +108,12 @@ for ( var i = 0; i < 20; i += .5) {
 }
 var results = [];
 var m = new LinearRegression(data);
-m.train(function(trainedModel) {
+m.train(function(err, trainedModel) {
     var predict = function() {
         if (test.length > 0) {
-            trainedModel.predict(test.splice(0,1), function(result) {
+            trainedModel.predict(test.splice(0,1), function(err, result) {
                 console.log(result);
-                results.push(result);
+                results.push(result.out);
                 predict();
             });
         } else {

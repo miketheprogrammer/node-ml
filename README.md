@@ -11,6 +11,30 @@ Installation
 ````javascript
 npm install node-ml
 ````
+
+Basic API Knowledge
+========
+
+Models are Instantiated with a TrainingSet as an argument
+
+Models are trained via .train()
+
+Models are acted upon by the perceive or predict functions. These functions currently do the same thing, the wording is indicative of the nature of the result, and the action the model has taken on the data.
+
+Models are designed to be trained at the start of a node instance, not during runtime. 
+
+Models all inherit from EventEmitter
+
+Models support either Callbacks or Events
+
+callbacks are of the structure function( err, result ) 
+
+Models support 3 events : trained, response, error
+
+Callbacks override Events, if you specify a callback and event will not be received.
+
+
+
 The Single Layer Perceptron
 ========
 
@@ -53,6 +77,48 @@ slp.train(function(trainedModel) {
       //should print out -1
     });
 });
+````
+
+Also Events are supported
+--------------
+current events are: trained, response, error
+
+trained is fired when a model completes training
+
+response is fired when a model completed a perception or prediction phase
+
+error is fired ... well on an error.
+
+````javascript
+    slp = new SingleLayerPerceptron(inputs, outputs, 0.001);
+    slp.on('error', function(err) {
+        t.same(1,1);
+    });
+    slp.on('trained', function(trainedModel) {
+        t.same(true,(trainedModel != undefined));
+
+        trainedModel.perceive([1,1]);
+        trainedModel.perceive([-1,-1]);
+    });
+    slp.on('response', function(response) {
+        perceivedTestCount -= 1;
+        var result = response.out;
+        var input = response.in;
+        var expectedIndex;
+        for (var i in perceivedTestInput ) {
+            if (perceivedTestInput[i].toString() == input.toString())
+                expectedIndex = i;
+            
+        }
+        var expected = perceivedTestOutput[expectedIndex];
+        t.same(expected, result);
+
+        if (perceivedTestCount == 0 )
+            t.end();
+        
+    });
+
+    slp.train();
 ````
 
 Even Better remember the above trained model is a Line seperating a 2d dimension space from -1 to 1 

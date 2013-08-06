@@ -14,11 +14,12 @@ test('SimpleModelSingleLayer', function (t) {
             -1
     ]
     slp = new SingleLayerPerceptron(inputs, outputs, 0.001);
-    slp.train(function(trainedModel) {
-        trainedModel.perceive([1,1], function(result) {
-            t.same(result,1);
-            trainedModel.perceive([-1,-1], function(result) {
-                t.same(result,-1);
+    slp.train(function(err, trainedModel) {
+        trainedModel.perceive([1,1], function(err, result) {
+            console.log(err);
+            t.same(result.out,1);
+            trainedModel.perceive([-1,-1], function(err, result) {
+                t.same(result.out,-1);
                 t.end();
             });
         });
@@ -61,12 +62,13 @@ test('SimpleModelMultiLayer', function (t) {
     m = new mlp(data);
 
 
-    m.train(function(trainedModel) {
-        trainedModel.perceive([0.98, 0.73], function(prob) {
+    m.train(function(err, trainedModel) {
+        trainedModel.perceive([0.98, 0.73], function(err, prob) {
+            
             console.log(prob);
-            t.same(true, (prob < .5));
-            trainedModel.perceive([0.78, 0.01], function(prob) {
-                t.same(true, (prob > .5));
+            t.same(true, (prob.out < .5));
+            trainedModel.perceive([0.78, 0.01], function(err, prob) {
+                t.same(true, (prob.out > .5));
                 t.end();
             });
         });
