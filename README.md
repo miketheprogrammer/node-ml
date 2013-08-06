@@ -54,6 +54,48 @@ slp.train(function(trainedModel) {
 });
 ````
 
+Also Events are supported
+--------------
+current events are: trained, response, error
+
+trained is fired when a model completes training
+
+response is fired when a model completed a perception or prediction phase
+
+error is fired ... well on an error.
+
+````javascript
+    slp = new SingleLayerPerceptron(inputs, outputs, 0.001);
+    slp.on('error', function(err) {
+        t.same(1,1);
+    });
+    slp.on('trained', function(trainedModel) {
+        t.same(true,(trainedModel != undefined));
+
+        trainedModel.perceive([1,1]);
+        trainedModel.perceive([-1,-1]);
+    });
+    slp.on('response', function(response) {
+        perceivedTestCount -= 1;
+        var result = response.out;
+        var input = response.in;
+        var expectedIndex;
+        for (var i in perceivedTestInput ) {
+            if (perceivedTestInput[i].toString() == input.toString())
+                expectedIndex = i;
+            
+        }
+        var expected = perceivedTestOutput[expectedIndex];
+        t.same(expected, result);
+
+        if (perceivedTestCount == 0 )
+            t.end();
+        
+    });
+
+    slp.train();
+````
+
 Even Better remember the above trained model is a Line seperating a 2d dimension space from -1 to 1 
 We can input any value in this range and get an output however this limited training set is a bad choice but heres some outputs
 
