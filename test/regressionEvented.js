@@ -1,3 +1,7 @@
+/*
+Tests a Partially Evented Linear Regression
+*/
+
 var LinearRegression= require("../lib/index").regression.LinearRegression;
 var test = require('tap').test;
 
@@ -103,7 +107,7 @@ var data = [
 
 test('Population by Profit Linear Regression', function(t) {
     var m = new LinearRegression(data);
-    m.train(function(err, trainedModel) { 
+    m.on('trained', function(trainedModel) { 
         t.same(trainedModel.theta.cols(), 1);
         t.same(trainedModel.theta.rows(), 2);
 
@@ -115,4 +119,5 @@ test('Population by Profit Linear Regression', function(t) {
             });
         });
     });
+    m.train();
 });
