@@ -1,6 +1,6 @@
 node-ml
 =======
-( Currently In active prototypal development, API expected to change )
+( Development is current suspended ).
 
 A Collection of Machine Learning algorithms built for use with NodeJS
 
