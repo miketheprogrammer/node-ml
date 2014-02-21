@@ -176,3 +176,7 @@ classification algorithm. It works by:
 4. Repeat until movement no longer occurs.
 
 Refer to examples for Usage:
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/miketheprogrammer/node-ml/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
