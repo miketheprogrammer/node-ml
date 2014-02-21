@@ -1,7 +1,7 @@
 {
   "name": "node-ml",
   "description": "A Collection of Machine Learning algorithms built for use with NodeJS",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "engines": {
     "node": ">=10.9"
   },
